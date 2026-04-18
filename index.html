@@ -1,0 +1,78 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Oh Yes Events | Wedding Checklist & Magic Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- html2pdf library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div class="magic-container">
+        <!-- Header Section -->
+        <div class="hero-section">
+            <div class="brand-badge">
+                <i class="fas fa-calendar-alt"></i> Oh Yes Events
+            </div>
+            <h1 class="glow-text">Wedding <span class="playfair">Checklist</span></h1>
+            <p class="tagline">Let's create magic — one perfect detail at a time.</p>
+            <div class="hero-decoration">
+                <span class="dot"></span><span class="line"></span><span class="dot"></span>
+            </div>
+        </div>
+
+        <!-- Main Two-Column Layout -->
+        <div class="dashboard">
+            <!-- LEFT: Checklist Categories -->
+            <div class="checklist-panel">
+                <div class="panel-header">
+                    <i class="fas fa-check-double"></i> Your Dream Wedding Roadmap
+                    <span class="check-count" id="selectedCountBadge">0 selected</span>
+                </div>
+                <div class="categories-wrapper" id="checklistContainer">
+                    <!-- Dynamic checklist will be injected here -->
+                </div>
+            </div>
+
+            <!-- RIGHT: Actions & Summary -->
+            <div class="actions-panel">
+                <div class="summary-card">
+                    <h3><i class="fas fa-clipboard-list"></i> Your Selections</h3>
+                    <div class="selected-summary" id="selectedSummaryList">
+                        <p class="placeholder-msg">✨ No items checked yet. Tick tasks to build your custom list.</p>
+                    </div>
+                    <div class="summary-stats">
+                        <span id="totalChecked">0</span> / <span id="totalItemsCount">0</span> tasks selected
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="submitEmailBtn"><i class="fas fa-paper-plane"></i> Submit & Send to Planner</button>
+                    <button class="btn btn-secondary" id="downloadPdfBtn"><i class="fas fa-file-pdf"></i> Download PDF Checklist</button>
+                    <button class="btn btn-outline" id="resetAllBtn"><i class="fas fa-undo-alt"></i> Reset All</button>
+                </div>
+
+                <div class="magic-note">
+                    <i class="fas fa-star-of-life"></i> After submit, your checklist will be sent directly to our magic team. Let's say Oh Yes!
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Consultation -->
+        <div class="footer-magic">
+            <div class="consult-card">
+                <i class="fas fa-champagne-glasses"></i> Schedule a consultation and tell us your story — we'll design the rest.
+                <span>Let's say, <strong>Oh Yes!</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
