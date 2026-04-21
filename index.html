@@ -4,75 +4,435 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Oh Yes Events | Wedding Checklist & Magic Planner</title>
+    <title>Oh Yes Events | Wedding Planning Companion</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- html2pdf library for PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-    <div class="magic-container">
-        <!-- Header Section -->
-        <div class="hero-section">
-            <div class="brand-badge">
-                <i class="fas fa-calendar-alt"></i> Oh Yes Events
+    <div class="app-container">
+        <!-- Warm, Trust-Building Header -->
+        <div class="app-header">
+            <div class="logo">
+                <i class="fas fa-hand-sparkles"></i> Oh Yes Events
+                <span class="tag">Your wedding, our passion</span>
             </div>
-            <h1 class="glow-text">Wedding <span class="playfair">Checklist</span></h1>
-            <p class="tagline">Let's create magic — one perfect detail at a time.</p>
-            <div class="hero-decoration">
-                <span class="dot"></span><span class="line"></span><span class="dot"></span>
-            </div>
-        </div>
-
-        <!-- Main Two-Column Layout -->
-        <div class="dashboard">
-            <!-- LEFT: Checklist Categories -->
-            <div class="checklist-panel">
-                <div class="panel-header">
-                    <i class="fas fa-check-double"></i> Your Dream Wedding Roadmap
-                    <span class="check-count" id="selectedCountBadge">0 selected</span>
-                </div>
-                <div class="categories-wrapper" id="checklistContainer">
-                    <!-- Dynamic checklist will be injected here -->
-                </div>
-            </div>
-
-            <!-- RIGHT: Actions & Summary -->
-            <div class="actions-panel">
-                <div class="summary-card">
-                    <h3><i class="fas fa-clipboard-list"></i> Your Selections</h3>
-                    <div class="selected-summary" id="selectedSummaryList">
-                        <p class="placeholder-msg">✨ No items checked yet. Tick tasks to build your custom list.</p>
-                    </div>
-                    <div class="summary-stats">
-                        <span id="totalChecked">0</span> / <span id="totalItemsCount">0</span> tasks selected
-                    </div>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-primary" id="submitEmailBtn"><i class="fas fa-paper-plane"></i> Submit & Send to Planner</button>
-                    <button class="btn btn-secondary" id="downloadPdfBtn"><i class="fas fa-file-pdf"></i> Download PDF Checklist</button>
-                    <button class="btn btn-outline" id="resetAllBtn"><i class="fas fa-undo-alt"></i> Reset All</button>
-                </div>
-
-                <div class="magic-note">
-                    <i class="fas fa-star-of-life"></i> After submit, your checklist will be sent directly to our magic team. Let's say Oh Yes!
-                </div>
+            <div class="trust-badge">
+                <i class="fas fa-shield-heart"></i> 500+ Happy Couples
             </div>
         </div>
 
-        <!-- Footer Consultation -->
-        <div class="footer-magic">
-            <div class="consult-card">
-                <i class="fas fa-champagne-glasses"></i> Schedule a consultation and tell us your story — we'll design the rest.
-                <span>Let's say, <strong>Oh Yes!</strong></span>
+        <!-- Friendly Progress Steps -->
+        <div class="progress-tracker">
+            <div class="progress-step active" data-step="1"><span class="step-num">1</span> Tell us about you</div>
+            <div class="progress-step" data-step="2"><span class="step-num">2</span> Your budget & dreams</div>
+            <div class="progress-step" data-step="3"><span class="step-num">3</span> What you need help with</div>
+            <div class="progress-step" data-step="4"><span class="step-num">4</span> Almost done!</div>
+        </div>
+
+        <div class="form-container">
+            <div class="form-header">
+                <h2><i class="fas fa-calendar-heart"></i> Let's plan your perfect celebration</h2>
+                <p>We've made this super simple. Fields with <span class="required-star">*</span> are important — the rest you can fill as you like. We're here to make this easy for you!</p>
+            </div>
+            
+            <form id="weddingForm">
+                <!-- ========== SECTION 1: ABOUT YOU & YOUR EVENT ========== -->
+                <div class="form-section required-section" data-section="1">
+                    <div class="section-title">
+                        <i class="fas fa-user-friends"></i> About You & Your Celebration
+                        <span class="required-badge">Tell us about yourself</span>
+                    </div>
+                    
+                    <div class="info-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Don't worry if you're not sure about some details — just give your best guess. We'll help you figure out the rest!</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your name(s) <span class="required-star">*</span></label>
+                            <input type="text" id="clientName" required placeholder="e.g., Simran & Raj">
+                            <small>How should we call you?</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone number <span class="required-star">*</span></label>
+                            <input type="tel" id="contactNumber" required placeholder="+91 98765 43210">
+                            <small>We'll text or call to say hello!</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email address <span class="required-star">*</span></label>
+                            <input type="email" id="email" required placeholder="hello@example.com">
+                            <small>We'll send you a beautiful summary</small>
+                        </div>
+                        <div class="form-group">
+                            <label>What are you celebrating? <span class="required-star">*</span></label>
+                            <select id="eventType" required>
+                                <option value="">Select one</option>
+                                <option value="Wedding">💍 Wedding Ceremony</option>
+                                <option value="Engagement">💖 Engagement Party</option>
+                                <option value="Reception">🥂 Wedding Reception</option>
+                                <option value="Sangeet / Mehendi">🎶 Sangeet / Mehendi Night</option>
+                                <option value="Destination Wedding">✈️ Destination Wedding</option>
+                                <option value="Anniversary">🎉 Anniversary Celebration</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>When is your big day? <span class="required-star">*</span></label>
+                            <input type="date" id="eventDate" required>
+                            <small>Approximate date is perfectly fine</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Where will it be? <span class="required-star">*</span></label>
+                            <input type="text" id="venue" required placeholder="Venue name or city">
+                            <small>We can also help you find the perfect venue!</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>How many guests? <span class="required-star">*</span></label>
+                            <input type="number" id="guestCount" required placeholder="e.g., 200">
+                            <small>Just an approximate number</small>
+                        </div>
+                        <div class="form-group">
+                            <label>How many days of celebration? <span class="required-star">*</span></label>
+                            <select id="functionDays" required>
+                                <option value="">Select one</option>
+                                <option value="1">🎈 1 day — Simple & sweet</option>
+                                <option value="2">🎊 2 days — Mehendi + Wedding</option>
+                                <option value="3">🎉 3 days — Full wedding celebration</option>
+                                <option value="4+">🌟 4+ days — Grand multi-day event</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== SECTION 2: BUDGET & YOUR DREAMS ========== -->
+                <div class="form-section required-section" data-section="2">
+                    <div class="section-title">
+                        <i class="fas fa-rupee-sign"></i> Your Budget & Dreams
+                        <span class="required-badge">Help us understand</span>
+                    </div>
+
+                    <div class="info-card">
+                        <i class="fas fa-heart"></i>
+                        <span>We work with all budgets — from intimate to grand. Just share what's comfortable for you, and we'll create magic within it!</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Total budget (₹) <span class="required-star">*</span></label>
+                            <input type="number" id="totalBudget" required placeholder="e.g., 25,00,000">
+                            <small>Don't worry — we respect every budget</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Budget status <span class="required-star">*</span></label>
+                            <select id="budgetStatus" required>
+                                <option value="">Select one</option>
+                                <option value="Approved & Ready">✅ Approved & ready to book</option>
+                                <option value="Pending Approval">⏳ Still discussing with family</option>
+                                <option value="Flexible / Negotiable">🤝 Flexible — open to suggestions</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Where would you like to splurge? (Optional but helpful)</label>
+                        <textarea id="budgetBreakdown" rows="2" placeholder="Example: Decor is most important to me, followed by food. Photography we can keep simple..."></textarea>
+                        <small>This helps us focus on what matters most to you</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your favorite colors or theme</label>
+                            <input type="text" id="colorPalette" placeholder="e.g., Maroon & Gold, Pastel Pink, Royal Blue">
+                            <small>Share any colors you love!</small>
+                        </div>
+                        <div class="form-group">
+                            <label>What vibe are you dreaming of? (Pick 1-2)</label>
+                            <div class="checkbox-group row-check">
+                                <label><input type="checkbox" class="vibe-item" value="Romantic & Soft"> 🌸 Romantic & Soft</label>
+                                <label><input type="checkbox" class="vibe-item" value="Grand & Glamorous"> ✨ Grand & Glamorous</label>
+                                <label><input type="checkbox" class="vibe-item" value="Bohemian / Rustic"> 🌿 Bohemian / Rustic</label>
+                                <label><input type="checkbox" class="vibe-item" value="Modern & Minimal"> ⚡ Modern & Minimal</label>
+                                <label><input type="checkbox" class="vibe-item" value="Traditional & Royal"> 🔱 Traditional & Royal</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Share inspiration links (Pinterest, Instagram, etc.)</label>
+                        <input type="text" id="referenceLinks" placeholder="https://pin.it/xxxx or multiple links separated by commas">
+                        <small>Show us what you love!</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload inspiration photos (optional)</label>
+                        <input type="file" id="referenceImages" accept="image/*" multiple>
+                        <small>You can select multiple images — we'd love to see your vision!</small>
+                    </div>
+                </div>
+
+                <!-- ========== SECTION 3: WHAT'S MOST IMPORTANT TO YOU ========== -->
+                <div class="form-section" data-section="2">
+                    <div class="section-title">
+                        <i class="fas fa-star"></i> What Matters Most to You?
+                        <span class="optional-badge">Pick your top priorities</span>
+                    </div>
+                    <p class="section-help">Select the things that are most important to you — we'll make sure these get extra love and attention!</p>
+                    
+                    <div class="priority-grid">
+                        <label><input type="checkbox" class="priority-item" value="Decor & Flowers"> 🎨 Decor & Flowers — Make everything beautiful</label>
+                        <label><input type="checkbox" class="priority-item" value="Food & Catering"> 🍽️ Food & Catering — Delicious meals for everyone</label>
+                        <label><input type="checkbox" class="priority-item" value="Photography & Videos"> 📸 Photography & Videos — Capture every moment</label>
+                        <label><input type="checkbox" class="priority-item" value="Music & Entertainment"> 🎵 Music & Entertainment — Keep the energy high</label>
+                        <label><input type="checkbox" class="priority-item" value="Venue & Logistics"> 🏨 Venue & Logistics — Smooth arrangements</label>
+                        <label><input type="checkbox" class="priority-item" value="Guest Gifts & Experience"> 🎁 Guest Gifts & Experience — Make guests feel special</label>
+                        <label><input type="checkbox" class="priority-item" value="Outfits & Makeup"> 👗 Outfits & Makeup — Looking your best</label>
+                        <label><input type="checkbox" class="priority-item" value="Invitations & Stationery"> ✉️ Invitations & Stationery — Beautiful paper details</label>
+                    </div>
+
+                    <div class="form-group highlight-group">
+                        <label>Things that absolutely MUST happen <span class="required-star">*</span></label>
+                        <textarea id="nonNegotiables" rows="3" required placeholder="Example: 'We want a live band during cocktail hour' or 'My grandmother must have a special seat' or 'We need a specific caterer' — tell us what's non-negotiable for your dream day"></textarea>
+                        <small>This is YOUR day — tell us what's essential and we'll make it happen!</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Things you'd like to avoid (if any)</label>
+                        <textarea id="restrictions" rows="2" placeholder="Example: No pork/beef, No loud music after 10pm, No smoking indoors, No flowers that cause allergies"></textarea>
+                        <small>We respect all preferences and restrictions</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Any important deadlines we should know?</label>
+                        <textarea id="criticalDeadlines" rows="2" placeholder="Example: Invitations must go out by Dec 15, Final menu by Jan 5, Guest list final by Feb 1..."></textarea>
+                        <small>We'll help you stay on track!</small>
+                    </div>
+                </div>
+
+                <!-- ========== SECTION 4: SERVICES WE CAN HELP WITH (Based on PDF checklist) ========== -->
+                <div class="form-section" data-section="3">
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-list"></i> Services We Can Arrange For You
+                        <span class="optional-badge">Check what you need help with</span>
+                    </div>
+                    <p class="section-help">Don't worry if you're not sure — just check what sounds helpful. We'll guide you through everything!</p>
+                    
+                    <!-- 1. Stationary & Wedding Collaterals (from PDF) -->
+                    <div class="service-category">
+                        <h4><i class="fas fa-envelope-open-text"></i> 1. Invitations & Paper Details</h4>
+                        <p class="category-help">Everything your guests will see on paper</p>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="stationary-item" value="Wedding Invitation Cards"> 💌 Wedding Invitation Cards</label>
+                            <label><input type="checkbox" class="stationary-item" value="Save the Date Cards"> 📅 Save the Date Cards</label>
+                            <label><input type="checkbox" class="stationary-item" value="RSVP Cards"> 📋 RSVP Cards</label>
+                            <label><input type="checkbox" class="stationary-item" value="Thank You Cards"> 💝 Thank You Cards</label>
+                            <label><input type="checkbox" class="stationary-item" value="Menu Cards"> 🍽️ Menu Cards</label>
+                            <label><input type="checkbox" class="stationary-item" value="Place Cards / Table Numbers"> 🪑 Place Cards & Table Numbers</label>
+                            <label><input type="checkbox" class="stationary-item" value="Welcome Signs"> 🪧 Welcome Signs</label>
+                            <label><input type="checkbox" class="stationary-item" value="Program Brochures"> 📖 Program Brochures</label>
+                            <label><input type="checkbox" class="stationary-item" value="Seating Chart Display"> 🗺️ Seating Chart Display</label>
+                        </div>
+                    </div>
+
+                    <!-- 2. Hotels and Management (from PDF) -->
+                    <div class="service-category">
+                        <h4><i class="fas fa-hotel"></i> 2. Guest Stays & Comfort</h4>
+                        <p class="category-help">Making sure your guests feel welcome and comfortable</p>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="hotel-item" value="Guest Room Block Booking"> 🏨 Guest Room Block Booking</label>
+                            <label><input type="checkbox" class="hotel-item" value="Welcome Drinks at Hotel"> 🥂 Welcome Drinks at Hotel</label>
+                            <label><input type="checkbox" class="hotel-item" value="Check-in / Check-out Coordination"> 📋 Check-in / Check-out Coordination</label>
+                            <label><input type="checkbox" class="hotel-item" value="VIP Guest Accommodation"> 👑 VIP Guest Accommodation</label>
+                            <label><input type="checkbox" class="hotel-item" value="Bridal Suite Preparation"> 👰 Bridal Suite Preparation</label>
+                            <label><input type="checkbox" class="hotel-item" value="Groom's Room Arrangement"> 🤵 Groom's Room Arrangement</label>
+                            <label><input type="checkbox" class="hotel-item" value="Hotel Staff Briefing"> 📢 Hotel Staff Briefing</label>
+                        </div>
+                    </div>
+
+                    <!-- 3. Transportation (from PDF) -->
+                    <div class="service-category">
+                        <h4><i class="fas fa-car-side"></i> 3. Transportation</h4>
+                        <p class="category-help">Getting everyone where they need to be</p>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="transport-item" value="Guest Airport Transfers"> ✈️ Guest Airport Transfers</label>
+                            <label><input type="checkbox" class="transport-item" value="Bridal Car / Vintage Car"> 🚗 Bridal Car / Vintage Car</label>
+                            <label><input type="checkbox" class="transport-item" value="Groom's Arrival Vehicle"> 🚙 Groom's Arrival Vehicle</label>
+                            <label><input type="checkbox" class="transport-item" value="Family & Relative Shuttles"> 🚐 Family & Relative Shuttles</label>
+                            <label><input type="checkbox" class="transport-item" value="Valet Parking Service"> 🅿️ Valet Parking Service</label>
+                            <label><input type="checkbox" class="transport-item" value="Backup Vehicles"> 🔄 Backup Vehicles (just in case)</label>
+                        </div>
+                    </div>
+
+                    <!-- 4. Hampers & Gift Materials (from PDF) -->
+                    <div class="service-category">
+                        <h4><i class="fas fa-gift"></i> 4. Welcome Gifts & Hampers</h4>
+                        <p class="category-help">Beautiful gifts to make your guests feel special</p>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="hamper-item" value="Welcome Hampers for Guests"> 🎁 Welcome Hampers for Guests</label>
+                            <label><input type="checkbox" class="hamper-item" value="Bridal Party Gift Boxes"> 💐 Bridal Party Gift Boxes</label>
+                            <label><input type="checkbox" class="hamper-item" value="Return Gifts for Attendees"> 🎀 Return Gifts for Attendees</label>
+                            <label><input type="checkbox" class="hamper-item" value="Personalized Mementos"> 📿 Personalized Mementos</label>
+                            <label><input type="checkbox" class="hamper-item" value="Kids Activity Gift Bags"> 🧸 Kids Activity Gift Bags</label>
+                        </div>
+                    </div>
+
+                    <!-- 5. Artists & Entertainment (from PDF) -->
+                    <div class="service-category">
+                        <h4><i class="fas fa-microphone-alt"></i> 5. Artists & Entertainment</h4>
+                        <p class="category-help">The fun, music, and memories</p>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="artist-item" value="Live Band / DJ Booking"> 🎧 Live Band / DJ Booking</label>
+                            <label><input type="checkbox" class="artist-item" value="Mehendi Artist"> 🎨 Mehendi Artist</label>
+                            <label><input type="checkbox" class="artist-item" value="Photographer & Videographer"> 📸 Photographer & Videographer</label>
+                            <label><input type="checkbox" class="artist-item" value="Makeup Artist"> 💄 Makeup Artist</label>
+                            <label><input type="checkbox" class="artist-item" value="Choreographer for Sangeet"> 💃 Choreographer for Sangeet</label>
+                            <label><input type="checkbox" class="artist-item" value="Photo Booth with Props"> 📷 Photo Booth with Props</label>
+                            <label><input type="checkbox" class="artist-item" value="Fireworks / Laser Show"> 🎆 Fireworks / Laser Show</label>
+                        </div>
+                    </div>
+
+                    <!-- 6. Vendors & Agency Package (from PDF) -->
+                    <div class="service-category">
+                        <h4><i class="fas fa-handshake"></i> 6. Vendors & Services</h4>
+                        <p class="category-help">All the behind-the-scenes magic makers</p>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="vendor-item" value="Decor & Florist Agency"> 🌸 Decor & Florist Agency</label>
+                            <label><input type="checkbox" class="vendor-item" value="Catering & F&B Vendor"> 🍲 Catering & Food Vendor</label>
+                            <label><input type="checkbox" class="vendor-item" value="Sound & Lighting Agency"> 💡 Sound & Lighting Agency</label>
+                            <label><input type="checkbox" class="vendor-item" value="Tent & Furniture Rental"> ⛺ Tent & Furniture Rental</label>
+                            <label><input type="checkbox" class="vendor-item" value="Security Service Provider"> 🛡️ Security Service Provider</label>
+                            <label><input type="checkbox" class="vendor-item" value="Power Backup Vendor"> 🔋 Power Backup Vendor</label>
+                        </div>
+                    </div>
+
+                    <!-- 7. Other Requirements (from PDF) -->
+                    <div class="service-category">
+                        <h4><i class="fas fa-clipboard-list"></i> 7. Extra Comfort & Care</h4>
+                        <p class="category-help">Little things that make a big difference</p>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="other-item" value="Emergency Medical Kit"> 🏥 Emergency Medical Kit</label>
+                            <label><input type="checkbox" class="other-item" value="Lost & Found Desk"> 🔍 Lost & Found Desk</label>
+                            <label><input type="checkbox" class="other-item" value="Prayer / Quiet Room"> 🕌 Prayer / Quiet Room</label>
+                            <label><input type="checkbox" class="other-item" value="Parking Management"> 🅿️ Parking Management</label>
+                            <label><input type="checkbox" class="other-item" value="Guest Registration Desk"> 📋 Guest Registration Desk</label>
+                            <label><input type="checkbox" class="other-item" value="Wi-Fi & Charging Stations"> 📶 Wi-Fi & Charging Stations</label>
+                            <label><input type="checkbox" class="other-item" value="Weather Backup Plan"> ☔ Weather Backup Plan</label>
+                        </div>
+                    </div>
+
+                    <!-- 8. Add-ons (from PDF) -->
+                    <div class="service-category">
+                        <h4><i class="fas fa-plus-circle"></i> 8. Fun Add-ons</h4>
+                        <p class="category-help">Extra sparkle to make your day unforgettable</p>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="addon-item" value="Live Food Counter"> 🍜 Live Food Counter</label>
+                            <label><input type="checkbox" class="addon-item" value="Cigar / Hookah Lounge"> 💨 Cigar / Hookah Lounge</label>
+                            <label><input type="checkbox" class="addon-item" value="After Party Arrangement"> 🎉 After Party Arrangement</label>
+                            <label><input type="checkbox" class="addon-item" value="Drone Photography"> 🚁 Drone Photography</label>
+                            <label><input type="checkbox" class="addon-item" value="360° Video Booth"> 📹 360° Video Booth</label>
+                            <label><input type="checkbox" class="addon-item" value="Celebrity Appearance"> ⭐ Celebrity Appearance</label>
+                            <label><input type="checkbox" class="addon-item" value="Midnight Snack Counter"> 🍕 Midnight Snack Counter</label>
+                        </div>
+                    </div>
+
+                    <!-- 9. Event Day Crew (from PDF - the core team) -->
+                    <div class="service-category highlight-category">
+                        <h4><i class="fas fa-users"></i> 9. Our Event Day Dream Team</h4>
+                        <p class="category-help">The amazing people who'll make everything run smoothly (we recommend all of these!)</p>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="crew-item" value="Show Running - Senior Associate"> 🎬 Show Running Director</label>
+                            <label><input type="checkbox" class="crew-item" value="Logistics - Senior Associate + Runner"> 📦 Logistics Team</label>
+                            <label><input type="checkbox" class="crew-item" value="Control Room - Senior Associate + Runner"> 🎛️ Control Room Team</label>
+                            <label><input type="checkbox" class="crew-item" value="Hospitality - Senior Associate + Runner"> 🤝 Hospitality Team</label>
+                            <label><input type="checkbox" class="crew-item" value="Supervisor - Senior Associate + Runner"> 👔 Supervisor Team</label>
+                            <label><input type="checkbox" class="crew-item" value="F&B Connoisseur - Runner"> 🍷 Food & Drink Specialist</label>
+                            <label><input type="checkbox" class="crew-item" value="Artist Manager - Senior Associate"> 🎭 Artist Manager</label>
+                            <label><input type="checkbox" class="crew-item" value="Vendor Manager - Senior Associate"> 📋 Vendor Manager</label>
+                            <label><input type="checkbox" class="crew-item" value="Shadowing (Male/Female/Runners)"> 👥 Shadowing Support Team</label>
+                            <label><input type="checkbox" class="crew-item" value="Production Manager - Senior Associate + Runner"> 🏗️ Production Manager</label>
+                        </div>
+                        <small class="crew-note">* The number of team members will be based on your event size and needs. We'll discuss this together!</small>
+                    </div>
+                </div>
+
+                <!-- ========== SECTION 5: FINAL CONFIRMATION ========== -->
+                <div class="form-section confirmation-section" data-section="4">
+                    <div class="section-title">
+                        <i class="fas fa-check-circle"></i> One Last Step
+                    </div>
+                    
+                    <div class="info-card success-card">
+                        <i class="fas fa-heart" style="color: #ff6b6b;"></i>
+                        <span>Thank you for sharing your dreams with us! We'll review everything and get back to you within 24 hours with a personalized plan.</span>
+                    </div>
+
+                    <label class="confirmation-checkbox">
+                        <input type="checkbox" id="confirmationCheckbox" required>
+                        <span>✅ Yes! I confirm that the information above is accurate. I understand that the Oh Yes Events team will contact me soon to discuss my dream celebration.</span>
+                    </label>
+                    
+                    <label class="confirmation-checkbox">
+                        <input type="checkbox" id="newsletterCheckbox">
+                        <span>📧 I'd love to receive wedding tips and inspiration via email (optional)</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit & Get Your Personalized Plan
+                </button>
+                <p class="form-footer">No spam, no pressure. Just a warm conversation about your dream day.</p>
+            </form>
+        </div>
+
+        <!-- Summary Modal (for review before submit) -->
+        <div id="summaryModal" class="modal">
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h3><i class="fas fa-file-alt"></i> Review Your Celebration Plan</h3>
+                    <span class="close-summary">&times;</span>
+                </div>
+                <div id="summaryContent" class="summary-content"></div>
+                <div class="modal-footer">
+                    <button id="confirmSubmitBtn" class="submit-btn"><i class="fas fa-check"></i> Looks Good — Submit!</button>
+                    <button id="editFormBtn" class="btn-secondary"><i class="fas fa-edit"></i> Go Back & Edit</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header success-header">
+                    <i class="fas fa-heart" style="font-size: 3rem; color: #ff6b6b;"></i>
+                    <h3>Thank You, <span id="successClientName"></span>!</h3>
+                </div>
+                <div class="success-content">
+                    <p>Your celebration requirements have been received with love 💖</p>
+                    <p>A detailed PDF summary has been downloaded. Our wedding expert will reach out to you within <strong>24 hours</strong>.</p>
+                    <div class="success-icon-group">
+                        <i class="fas fa-envelope"></i>
+                        <i class="fas fa-phone-alt"></i>
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <p class="small-text">We can't wait to create magic with you!</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="closeSuccessBtn" class="submit-btn"><i class="fas fa-smile"></i> Wonderful!</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- EmailJS Library -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
